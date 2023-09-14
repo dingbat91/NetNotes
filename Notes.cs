@@ -16,4 +16,9 @@ public class Note
         Date = DateTime.Now;
         Tags = null;
     }
+
+    public interface IListDataSource : Terminal.Gui.IListDataSource
+    {
+
+    }
 }

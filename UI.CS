@@ -6,21 +6,10 @@ public static class NoteUI
 {
     static readonly Terminal.Gui.Toplevel Top = Application.Top;
     internal static Note[]? notes = null;
-    public static void Initialize(Note[]? notes = null)
+    public static void Initialize(ref List<Note> notes)
     {
         //Initialize GUI
         Application.Init();
-
-        //Set Notes
-        if (notes != null)
-        {
-            NoteUI.notes = notes;
-        }
-        else
-        {
-            var testNote = new Note("Intro Note", "You have no notes, so this is a default note to display in the UI!");
-            NoteUI.notes = new Note[] { testNote };
-        }
 
         //Main Menu Code
         var mainMenu = new MenuBar(new MenuBarItem[]{
@@ -34,7 +23,7 @@ public static class NoteUI
         Top.Add(mainMenu);
 
         //Initialize Note Browser - Default First View
-        NoteBrowser.init(NoteUI.notes);
+        NoteBrowser.init(notes);
 
         //Execute GUI
         Application.Run();
@@ -54,6 +43,7 @@ public static class NoteUI
 //Note Browser UI
 internal static class NoteBrowser
 {
+    //View parameters
     static readonly Terminal.Gui.Toplevel Top = Application.Top;
     static internal Terminal.Gui.Window NBrowser = new Window("Note Browser")
     {
@@ -69,15 +59,30 @@ internal static class NoteBrowser
         Width = Dim.Percent(10),
         Height = Dim.Fill()
     };
-    static Terminal.Gui.Window NView = new Window("Note View")
+    static internal Terminal.Gui.Window NView = new Window("Note View")
     {
         X = Pos.Right(NList),
         Y = 0,
         Width = Dim.Fill(),
         Height = Dim.Fill()
     };
-    internal static void init(Note[]? notes = null)
+    static internal Terminal.Gui.TextView notetext = new Terminal.Gui.TextView()
     {
+        X = 0,
+        Y = 0,
+        Width = Dim.Fill(),
+        Height = Dim.Fill(),
+        ReadOnly = true
+    };
+
+    //Initialize Note Browser
+    internal static void init(List<Note> notes)
+    {
+        if (notes != null)
+        {
+            update(notes);
+        };
+
         //Note List
         NBrowser.Add(NList);
         // Note View
@@ -86,7 +91,8 @@ internal static class NoteBrowser
 
     }
 
-    internal static void update(Note[] notes)
+    //Update Note List
+    internal static void update(List<Note> notes)
     {
         //Don't do anything if No notes
         if (notes == null)
@@ -95,12 +101,15 @@ internal static class NoteBrowser
         }
 
         //Clear Note List
-        var list = new ListView(notes)
+        var list = new ListView(notes.Select(note => note.Title).ToList())
         {
             X = 0,
             Y = 0,
             Width = Dim.Fill(),
             Height = Dim.Fill()
         };
+        NList.Add(list);
     }
+
+
 }
