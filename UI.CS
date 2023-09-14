@@ -55,37 +55,33 @@ public static class NoteUI
 internal static class NoteBrowser
 {
     static readonly Terminal.Gui.Toplevel Top = Application.Top;
+    static internal Terminal.Gui.Window NBrowser = new Window("Note Browser")
+    {
+        X = 0,
+        Y = 1,
+        Width = Dim.Fill(),
+        Height = Dim.Fill()
+    };
+    static internal Terminal.Gui.Window NList = new Window("Notes")
+    {
+        X = 0,
+        Y = 0,
+        Width = Dim.Percent(10),
+        Height = Dim.Fill()
+    };
+    static Terminal.Gui.Window NView = new Window("Note View")
+    {
+        X = Pos.Right(NList),
+        Y = 0,
+        Width = Dim.Fill(),
+        Height = Dim.Fill()
+    };
     internal static void init(Note[]? notes = null)
     {
-        var NBrowser = new Window("Note Browser")
-        {
-            X = 0,
-            Y = 1,
-            Width = Dim.Fill(),
-            Height = Dim.Fill()
-        };
-
         //Note List
-        var NList = new Window("Notes")
-        {
-            X = 0,
-            Y = 0,
-            Width = Dim.Percent(10),
-            Height = Dim.Fill()
-        };
         NBrowser.Add(NList);
-
-
         // Note View
-        var NView = new Window("Note View")
-        {
-            X = Pos.Right(NList),
-            Y = 0,
-            Width = Dim.Fill(),
-            Height = Dim.Fill()
-        };
         NBrowser.Add(NView);
-
         Top.Add(NBrowser);
 
     }
