@@ -5,3 +5,6 @@
 #Unneeded folders
 bin/
 obj/
+
+## #F Files
+.fake
