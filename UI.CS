@@ -6,8 +6,9 @@ using Terminal.Gui;
 
 /*
 !! TO-DO LIST !!
- TODO: Load in notes.
- TODO: Allow swapping between Notes
+    TODO: Fix Note updating
+    TODO: note DB/File Loading
+    TODO: Tags
 */
 
 
@@ -123,7 +124,7 @@ internal static class NoteBrowser
     private static void InitEHandlers()
     {
         //save Note text event handler
-        NText.TextChanged += () => Save();
+        NText.ContentsChanged += (e) => Save(e);
 
         // switch note event handler
         list.SelectedItemChanged += (e) => SwitchNote(e);
@@ -153,14 +154,16 @@ internal static class NoteBrowser
     }
 
     // Event Handler for saving notes
-    private static void Save()
+    private static void Save(TextView.ContentsChangedEventArgs e)
     {
+        Console.WriteLine(e.ToString());
         // get note
         var note = NoteUI.notes[list.SelectedItem];
         // update note
         note.Body = NText.Text.ToString();
-        // update note list
-        NoteUI.notes[list.SelectedItem] = note;
+
+
+
     }
 
     //Event Handler for switching notes
