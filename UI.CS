@@ -119,14 +119,11 @@ internal static class NoteBrowser
         InitEHandlers();
     }
 
-
+    //Register Event Handlers
     private static void InitEHandlers()
     {
         //save Note text event handler
-        NText.TextChanged += () =>
-        {
-            Save();
-        };
+        NText.TextChanged += () => Save();
 
         // switch note event handler
         list.SelectedItemChanged += (e) => SwitchNote(e);
@@ -155,7 +152,7 @@ internal static class NoteBrowser
 
     }
 
-    // save edited note
+    // Event Handler for saving notes
     private static void Save()
     {
         // get note
@@ -166,6 +163,7 @@ internal static class NoteBrowser
         NoteUI.notes[list.SelectedItem] = note;
     }
 
+    //Event Handler for switching notes
     private static void SwitchNote(ListViewItemEventArgs e)
     {
         var note = NoteUI.notes[e.Item];
