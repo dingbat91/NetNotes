@@ -18,4 +18,13 @@ public class Note
         Date = DateTime.Now;
         Tags = tags;
     }
+
+    public Note()
+    {
+        NoteID = Guid.NewGuid().ToString();
+        Title = "New Note";
+        Body = "This is a new note!";
+        Date = DateTime.Now;
+        Tags = null;
+    }
 }

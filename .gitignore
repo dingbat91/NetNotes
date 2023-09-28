@@ -8,3 +8,6 @@ obj/
 
 ## #F Files
 .fake
+
+#LiteDB files
+*.db

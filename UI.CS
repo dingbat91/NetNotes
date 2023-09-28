@@ -173,9 +173,12 @@ namespace NetNotes
         // Event Handler for saving notes
         private static void Save(ref List<Note> notes, string newtext)
         {
+            NText.ReadOnly = true;
             var note = NoteUI.notes[list.SelectedItem];
             note.Body = newtext;
             NoteUI.notes[list.SelectedItem] = note;
+            NoteDatabase.Update(note);
+            NText.ReadOnly = false;
         }
 
         //Event Handler for switching notes
