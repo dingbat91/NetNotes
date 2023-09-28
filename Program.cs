@@ -12,6 +12,8 @@ namespace NetNotes
             //Set Notes
             var testNote = new Note("Intro Note", "You have no notes, so this is a default note to display in the UI!");
             var testnote2 = new Note("Second Note", "This is a second note to display in the UI!");
+
+            //Initialize Database and get notes
             NoteDatabase.init();
             var dbnotes = NoteDatabase.GetAll();
 
